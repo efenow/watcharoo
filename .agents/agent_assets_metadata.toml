@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "6s4qEuL2CLfccWLfTE0Xa"
+uri = "file://README.md"
+type = "text"
+title = "Watcharoo README.md"
