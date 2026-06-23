@@ -36,17 +36,19 @@ export default function Home() {
 
   const renderRow = (title: string, data: any, isLoading: boolean) => (
     <section className="py-8 border-t border-border/50">
-      <div className="px-6 md:px-10">
+      <div className="container max-w-screen-2xl mx-auto px-6 md:px-10">
         <h2 className="text-2xl font-bold mb-6 text-foreground tracking-tight">{title}</h2>
-        <div className="flex overflow-x-auto pb-3 gap-5 snap-x snap-mandatory watcharoo-scrollbar">
+      </div>
+      <div className="overflow-x-auto pb-3 watcharoo-scrollbar">
+        <div className="flex gap-5 snap-x snap-mandatory px-6 md:px-10">
           {isLoading
             ? Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="min-w-[150px] md:min-w-[185px] snap-start shrink-0">
+                <div key={i} className="w-[150px] md:w-[180px] shrink-0 snap-start">
                   <SkeletonCard />
                 </div>
               ))
             : data?.results.map((item: any) => (
-                <div key={item.id} className="min-w-[150px] md:min-w-[185px] snap-start shrink-0">
+                <div key={item.id} className="w-[150px] md:w-[180px] shrink-0 snap-start">
                   <MediaCard item={item} />
                 </div>
               ))}
