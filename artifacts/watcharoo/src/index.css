@@ -364,3 +364,23 @@
     inset: -1px;
   }
 }
+
+/* Custom scrollbar for horizontal category rows */
+.watcharoo-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(0 0% 28%) hsl(0 0% 14%);
+}
+.watcharoo-scrollbar::-webkit-scrollbar {
+  height: 5px;
+}
+.watcharoo-scrollbar::-webkit-scrollbar-track {
+  background: hsl(0 0% 14%);
+  border-radius: 99px;
+}
+.watcharoo-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(0 0% 28%);
+  border-radius: 99px;
+}
+.watcharoo-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(0 0% 38%);
+}

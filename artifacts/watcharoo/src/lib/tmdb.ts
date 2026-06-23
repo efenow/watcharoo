@@ -73,18 +73,32 @@ export interface Video {
 export const api = {
   searchMulti: (query: string) => tmdbFetch<{ results: MediaItem[] }>("/search/multi", { query }),
   getTrending: () => tmdbFetch<{ results: MediaItem[] }>("/trending/all/week"),
-  getPopularMovies: () => tmdbFetch<{ results: MediaItem[] }>("/movie/popular"),
-  getPopularTV: () => tmdbFetch<{ results: MediaItem[] }>("/tv/popular"),
-  
+
+  getPopularMovies: () =>
+    tmdbFetch<{ results: MediaItem[] }>("/discover/movie", {
+      sort_by: "popularity.desc",
+      "vote_average.gte": "7",
+      "vote_count.gte": "500",
+      without_genres: "99,10755",
+    }),
+
+  getPopularTV: () =>
+    tmdbFetch<{ results: MediaItem[] }>("/discover/tv", {
+      sort_by: "popularity.desc",
+      "vote_average.gte": "7",
+      "vote_count.gte": "200",
+      without_genres: "10763,10764,10767",
+    }),
+
   getMovie: (id: string) => tmdbFetch<any>(`/movie/${id}`),
   getTV: (id: string) => tmdbFetch<any>(`/tv/${id}`),
-  
+
   getMovieProviders: (id: string) => tmdbFetch<WatchProvidersResponse>(`/movie/${id}/watch/providers`),
   getTVProviders: (id: string) => tmdbFetch<WatchProvidersResponse>(`/tv/${id}/watch/providers`),
-  
+
   getMovieCredits: (id: string) => tmdbFetch<{ cast: CastMember[] }>(`/movie/${id}/credits`),
   getTVCredits: (id: string) => tmdbFetch<{ cast: CastMember[] }>(`/tv/${id}/credits`),
-  
+
   getMovieVideos: (id: string) => tmdbFetch<{ results: Video[] }>(`/movie/${id}/videos`),
   getTVVideos: (id: string) => tmdbFetch<{ results: Video[] }>(`/tv/${id}/videos`),
 

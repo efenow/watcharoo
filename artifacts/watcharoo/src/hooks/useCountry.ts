@@ -24,6 +24,7 @@ export function useCountry() {
   const updateCountry = (newCountry: string) => {
     setCountry(newCountry);
     localStorage.setItem("watcharoo_country", newCountry);
+    window.location.reload();
   };
 
   return { country: country || "US", setCountry: updateCountry };

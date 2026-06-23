@@ -36,7 +36,6 @@ const COUNTRIES = [
   { code: "CL", name: "Chile", flag: "🇨🇱" },
   { code: "CO", name: "Colombia", flag: "🇨🇴" },
   { code: "AE", name: "United Arab Emirates", flag: "🇦🇪" },
-  { code: "IL", name: "Israel", flag: "🇮🇱" },
 ];
 
 export function CountrySelector() {
@@ -44,7 +43,7 @@ export function CountrySelector() {
 
   return (
     <Select value={country} onValueChange={setCountry}>
-      <SelectTrigger className="w-[180px] bg-card border-border/50 focus:ring-primary h-9">
+      <SelectTrigger className="w-[180px] bg-card border-border/50 focus:ring-primary h-9" data-testid="select-country">
         <SelectValue placeholder="Select country" />
       </SelectTrigger>
       <SelectContent className="max-h-[300px]">

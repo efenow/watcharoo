@@ -6,11 +6,17 @@ export function Footer() {
     <footer className="border-t border-border/50 py-8 md:py-12 mt-auto">
       <div className="container max-w-screen-2xl mx-auto px-4 text-center text-sm text-muted-foreground">
         © {currentYear} efenow.xyz. All film data is taken from{" "}
-        <a href="https://themoviedb.org" target="_blank" rel="noreferrer">
-          <img 
-            src={tmdbLogoPath} 
-            alt="TMDB" 
-            style={{ height: '20px', filter: 'grayscale(100%) brightness(0.6)', display: 'inline-block', verticalAlign: 'middle', marginLeft: '4px', marginRight: '4px' }} 
+        <a href="https://themoviedb.org" target="_blank" rel="noreferrer" className="inline-block align-middle mx-1">
+          <img
+            src={tmdbLogoPath}
+            alt="TMDB"
+            style={{
+              height: "1em",
+              width: "auto",
+              filter: "grayscale(100%) brightness(0.7)",
+              display: "inline-block",
+              verticalAlign: "middle",
+            }}
           />
         </a>{" "}
         with permission.
