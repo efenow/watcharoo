@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { CountrySelector } from "./CountrySelector";
 import { Search } from "lucide-react";
-import rectangleLogoPath from "@assets/RECTANGLE_LOGOMARK_TEXT_1782213400533.png";
+import rectangleLogoPath from "@assets/RECTANGLE LOGOMARK TEXT BIG.png";
 
 export function Navbar() {
   const [, setLocation] = useLocation();
