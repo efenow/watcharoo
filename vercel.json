@@ -1,0 +1,12 @@
+{
+  "installCommand": "npm install -g pnpm && pnpm install",
+  "buildCommand": "pnpm --filter @workspace/watcharoo run build",
+  "outputDirectory": "artifacts/watcharoo/dist/public",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "BASE_PATH": "/"
+  }
+}
