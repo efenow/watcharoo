@@ -1,45 +1,64 @@
-# [Project name]
+# Watcharoo
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Watcharoo is a streaming service finder — search any movie or TV show and instantly see where it's streaming in your country, powered by the TMDB API.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/watcharoo run dev` — run the frontend (port assigned by workflow)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- Required env: `VITE_TMDB_TOKEN` — TMDB Read Access Token (secret)
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Frontend: React + Vite, Tailwind CSS, shadcn/ui, framer-motion
+- Routing: wouter
+- Data fetching: TanStack React Query
+- Icons: lucide-react, react-icons/si
+- API: TMDB v3 (direct from browser, no backend)
+- Static hosting compatible (Vercel, Netlify, etc.)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/watcharoo/` — the main web app
+- `artifacts/watcharoo/src/lib/tmdb.ts` — TMDB API client + all types
+- `artifacts/watcharoo/src/pages/` — Home, MovieDetail, TVDetail, Search
+- `artifacts/watcharoo/src/components/` — Navbar, Footer, MediaCard, WatchProviders, CountrySelector, SkeletonCard
+- `artifacts/watcharoo/src/hooks/useCountry.ts` — country detection + localStorage persistence
+- `attached_assets/` — logo PNGs and TMDB SVG (imported via @assets alias)
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Pure static frontend — all TMDB API calls happen in the browser using Bearer token from `VITE_TMDB_TOKEN`
+- No backend, no database — fully deployable to Vercel/Netlify for free
+- Country is auto-detected via ipapi.co on first visit, then stored in localStorage
+- TMDB watch providers are keyed by ISO country code (e.g. "US", "GB")
+- TMDB images use `https://image.tmdb.org/t/p/{size}{path}` (w500 for posters, original for backdrops)
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- Home page: hero search, trending this week, popular movies, popular TV
+- Search page: multi-search with Movie/TV filters
+- Movie detail: backdrop, poster, metadata, WHERE TO WATCH (by country), cast, trailers, similar titles
+- TV detail: same as movie, adapted for series (seasons, status, network)
+- Country selector: 35+ countries, auto-detected from IP, persisted to localStorage
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Dark-only design — very dark grey background (#141414), primary color #C43E0D
+- Inter SemiBold 600 for titles, Inter Regular 400 for body
+- TMDB SVG logo in footer must be greyed out, linking to https://themoviedb.org
+- TMDB API key kept in VITE_TMDB_TOKEN secret — never hardcode in source
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- `VITE_TMDB_TOKEN` must be prefixed with `VITE_` to be available in the browser via `import.meta.env`
+- Google Fonts `@import url(...)` must be the very first line of index.css (before `@import "tailwindcss"`)
+- The `@assets` Vite alias points to `attached_assets/` at the repo root
+- For static Vercel deployment, add `vercel.json` with rewrites to handle client-side routing
 
 ## Pointers
 
 - See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- TMDB API docs: https://developer.themoviedb.org/docs
